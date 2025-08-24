@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -51,6 +52,18 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				arabic: {
+					primary: 'hsl(var(--arabic-primary))',
+					secondary: 'hsl(var(--arabic-secondary))',
+					accent: 'hsl(var(--arabic-accent))'
+				},
+				editor: {
+					bg: 'hsl(var(--editor-bg))',
+					border: 'hsl(var(--editor-border))'
+				},
+				code: {
+					bg: 'hsl(var(--code-bg))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
