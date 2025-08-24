@@ -1,8 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Code, Rocket, BookOpen, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
+  const scrollToEditor = () => {
+    const editorSection = document.querySelector('[data-editor-section]');
+    if (editorSection) {
+      editorSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="py-20 px-4">
       <div className="container mx-auto text-center">
@@ -29,14 +37,16 @@ const HeroSection = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="text-lg px-8 py-6 glow-primary">
+            <Button size="lg" className="text-lg px-8 py-6 glow-primary" onClick={scrollToEditor}>
               <Code className="ml-2 h-5 w-5" />
               ابدأ البرمجة الآن
             </Button>
             
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-              <BookOpen className="ml-2 h-5 w-5" />
-              تعلم الأساسيات
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+              <Link to="/basics">
+                <BookOpen className="ml-2 h-5 w-5" />
+                تعلم الأساسيات
+              </Link>
             </Button>
           </div>
 

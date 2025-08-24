@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import CodeEditor from "@/components/CodeEditor";
-import BasicsSection from "@/components/BasicsSection";
+import { Link } from "react-router-dom";
+import { BookOpen } from "lucide-react";
 
 const Index = () => {
   const [activeLanguage, setActiveLanguage] = useState<"javascript" | "python">("javascript");
@@ -17,15 +19,23 @@ const Index = () => {
         <HeroSection />
         
         {/* Code Editor Section */}
-        <section className="py-16 px-4 bg-muted/30">
+        <section className="py-16 px-4 bg-muted/30" data-editor-section>
           <div className="container mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4 gradient-hero bg-clip-text text-transparent">
                 محرر الأكواد العربي
               </h2>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-muted-foreground text-lg mb-6">
                 اكتب الكود بالعربية واحصل على الترجمة الفورية
               </p>
+              
+              {/* Link to Basics */}
+              <Button asChild variant="outline" size="lg" className="gap-2 mb-8">
+                <Link to="/basics">
+                  <BookOpen className="h-5 w-5" />
+                  تعلم الأساسيات أولاً
+                </Link>
+              </Button>
             </div>
             
             <Tabs value={activeLanguage} onValueChange={(value) => setActiveLanguage(value as "javascript" | "python")} className="w-full">
@@ -46,13 +56,6 @@ const Index = () => {
                 <CodeEditor language="python" />
               </TabsContent>
             </Tabs>
-          </div>
-        </section>
-        
-        {/* Basics Section */}
-        <section className="py-16 px-4">
-          <div className="container mx-auto">
-            <BasicsSection />
           </div>
         </section>
       </main>
