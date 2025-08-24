@@ -699,32 +699,32 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
             <span className="font-medium">اختر نظام الترجمة:</span>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
+          <div className="flex flex-wrap justify-center gap-3 w-full">
             <Button
               variant={translationMode === "full" ? "default" : "outline"}
               onClick={() => setTranslationMode("full")}
-              className="flex flex-col gap-2 h-auto py-6 text-center"
+              className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
             >
-              <span className="font-bold text-base">الترجمة الكلية</span>
-              <span className="text-xs opacity-80">ترجمة جميع المصطلحات العربية</span>
+              <span className="font-bold text-sm">الترجمة الكلية</span>
+              <span className="text-xs opacity-80">جميع المصطلحات</span>
             </Button>
             
             <Button
               variant={translationMode === "partial" ? "default" : "outline"}
               onClick={() => setTranslationMode("partial")}
-              className="flex flex-col gap-2 h-auto py-6 text-center"
+              className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
             >
-              <span className="font-bold text-base">الترجمة الجزئية</span>
-              <span className="text-xs opacity-80">الكلمات الأساسية فقط</span>
+              <span className="font-bold text-sm">الترجمة الجزئية</span>
+              <span className="text-xs opacity-80">الكلمات الأساسية</span>
             </Button>
             
             <Button
               variant={translationMode === "mixed" ? "default" : "outline"}
               onClick={() => setTranslationMode("mixed")}
-              className="flex flex-col gap-2 h-auto py-6 text-center"
+              className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
             >
-              <span className="font-bold text-base">الترجمة المختلطة</span>
-              <span className="text-xs opacity-80">مع الحفاظ على التعليقات العربية</span>
+              <span className="font-bold text-sm">الترجمة المختلطة</span>
+              <span className="text-xs opacity-80">مع التعليقات</span>
             </Button>
           </div>
         </div>
