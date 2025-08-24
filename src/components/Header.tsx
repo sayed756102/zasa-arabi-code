@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Code, BookOpen, Home } from "lucide-react";
+import { Code, BookOpen, Home, MessageCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
@@ -38,6 +38,17 @@ const Header = () => {
             <Link to="/basics">
               <BookOpen className="h-4 w-4" />
               الأساسيات
+            </Link>
+          </Button>
+          <Button 
+            variant={location.pathname === "/contact" ? "default" : "ghost"} 
+            size="sm" 
+            className="gap-2"
+            asChild
+          >
+            <Link to="/contact">
+              <MessageCircle className="h-4 w-4" />
+              تواصل معنا
             </Link>
           </Button>
         </nav>

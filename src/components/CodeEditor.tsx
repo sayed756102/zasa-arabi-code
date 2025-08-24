@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Copy, Trash2, Play, Settings } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -619,19 +618,35 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
           </Badge>
         </div>
         
-        {/* Translation Mode Selector */}
-        <div className="flex items-center gap-3">
+      {/* Translation Mode Buttons */}
+        <div className="flex items-center gap-2">
           <Settings className="h-4 w-4 text-muted-foreground" />
-          <Select value={translationMode} onValueChange={(value: TranslationMode) => setTranslationMode(value)}>
-            <SelectTrigger className="w-48">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="full">الترجمة الكلية</SelectItem>
-              <SelectItem value="partial">الترجمة الجزئية</SelectItem>
-              <SelectItem value="mixed">الترجمة المختلطة</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex gap-1 p-1 bg-muted rounded-lg">
+            <Button
+              variant={translationMode === "full" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTranslationMode("full")}
+              className="text-xs"
+            >
+              كلية
+            </Button>
+            <Button
+              variant={translationMode === "partial" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTranslationMode("partial")}
+              className="text-xs"
+            >
+              جزئية
+            </Button>
+            <Button
+              variant={translationMode === "mixed" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTranslationMode("mixed")}
+              className="text-xs"
+            >
+              مختلطة
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -726,7 +741,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
             </Button>
           </div>
           
-          <div className="code-output min-h-[400px] p-4 overflow-auto">
+          <div className="code-output h-[400px] p-4 overflow-auto bg-muted/20 rounded-md border">
             <pre className="text-sm whitespace-pre-wrap">
               <code className="text-foreground">
                 {translatedCode || `// سيظهر الكود المترجم هنا بعد الضغط على 'ترجم'
