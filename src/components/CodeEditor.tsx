@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Copy, Trash2, Play, Settings } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Copy, Trash2, Play, Settings, Facebook } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +16,8 @@ type TranslationMode = "full" | "partial" | "mixed";
 const CodeEditor = ({ language }: CodeEditorProps) => {
   const [arabicCode, setArabicCode] = useState("");
   const [translatedCode, setTranslatedCode] = useState("");
-  const [translationMode, setTranslationMode] = useState<TranslationMode>("full");
+  const [translationMode, setTranslationMode] = useState<TranslationMode>("partial");
+  const [showSupportDialog, setShowSupportDialog] = useState(false);
   const { toast } = useToast();
 
   // Enhanced translation dictionaries with comprehensive terms
@@ -702,7 +704,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
           <div className="flex flex-wrap justify-center gap-3 w-full">
             <Button
               variant={translationMode === "full" ? "default" : "outline"}
-              onClick={() => setTranslationMode("full")}
+              onClick={() => setShowSupportDialog(true)}
               className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
             >
               <span className="font-bold text-sm">الترجمة الكلية</span>
@@ -720,7 +722,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
             
             <Button
               variant={translationMode === "mixed" ? "default" : "outline"}
-              onClick={() => setTranslationMode("mixed")}
+              onClick={() => setShowSupportDialog(true)}
               className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
             >
               <span className="font-bold text-sm">الترجمة المختلطة</span>
@@ -760,6 +762,45 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
           </div>
         </Card>
       </div>
+
+      {/* Support Dialog */}
+      <Dialog open={showSupportDialog} onOpenChange={setShowSupportDialog}>
+        <DialogContent className="sm:max-w-md text-center">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-bold text-primary">
+              ميزة قيد التطوير 🚀
+            </DialogTitle>
+            <DialogDescription className="space-y-4 text-sm">
+              <div className="text-muted-foreground">
+                هذه الميزة ستنزل في التحديث القادم
+              </div>
+              
+              <div className="bg-muted/20 p-4 rounded-lg">
+                <p className="text-foreground mb-3">
+                  حالياً المطور واحد يطور، والتطوير يستاهل أموال لدعمه!
+                </p>
+                
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <Facebook className="h-5 w-5 text-blue-600" />
+                  <span className="text-sm text-muted-foreground">تواصل معنا</span>
+                </div>
+                
+                <p className="text-sm text-muted-foreground mb-4">
+                  يمكنك الدخول على هذا الموقع لدعمنا - يحتوي على بعض الإعلانات
+                </p>
+                
+                <Button 
+                  onClick={() => window.open('https://zas-code-journey.vercel.app', '_blank')} 
+                  className="w-full gap-2"
+                  variant="default"
+                >
+                  اضغط هنا للدعم ✨
+                </Button>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
