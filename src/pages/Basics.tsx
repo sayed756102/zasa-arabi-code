@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import BasicsSection from "@/components/BasicsSection";
+import TermsSection from "@/components/TermsSection";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Basics = () => {
   return (
@@ -29,7 +31,24 @@ const Basics = () => {
         {/* Basics Content */}
         <section className="py-16 px-4">
           <div className="container mx-auto">
-            <BasicsSection />
+            <Tabs defaultValue="basics" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 mb-8">
+                <TabsTrigger value="basics" className="text-lg font-semibold">
+                  أساسيات البرمجة
+                </TabsTrigger>
+                <TabsTrigger value="terms" className="text-lg font-semibold">
+                  قاموس المصطلحات
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="basics" className="space-y-8">
+                <BasicsSection />
+              </TabsContent>
+              
+              <TabsContent value="terms" className="space-y-8">
+                <TermsSection />
+              </TabsContent>
+            </Tabs>
           </div>
         </section>
       </main>
