@@ -6,6 +6,7 @@ import { Copy, Trash2, Play, Settings, Facebook } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
+import TranslationSettings from "./TranslationSettings";
 
 interface CodeEditorProps {
   language: "javascript" | "python";
@@ -695,7 +696,34 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
         </Card>
 
         {/* Translation System Buttons */}
-        <div className="flex flex-col items-center gap-4 py-8 bg-gradient-to-r from-primary/5 via-accent/10 to-primary/5 rounded-lg border border-border/50">
+        <Card className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">أنظمة الترجمة</h3>
+            <TranslationSettings 
+              onTermSelect={(arabic, english) => {
+                // Add the selected term to the current cursor position in Arabic input
+                const textarea = document.querySelector('textarea[dir="rtl"]') as HTMLTextAreaElement;
+                if (textarea) {
+                  const start = textarea.selectionStart;
+                  const end = textarea.selectionEnd;
+                  const currentValue = textarea.value;
+                  const newValue = currentValue.substring(0, start) + arabic + currentValue.substring(end);
+                  setArabicCode(newValue);
+                  
+                  // Focus back to textarea and set cursor position
+                  setTimeout(() => {
+                    textarea.focus();
+                    textarea.setSelectionRange(start + arabic.length, start + arabic.length);
+                  }, 0);
+                  
+                  toast({
+                    title: "تم إضافة المصطلح",
+                    description: `تم إضافة "${arabic}" = "${english}"`,
+                  });
+                }
+              }}
+            />
+          </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Settings className="h-5 w-5" />
             <span className="font-medium">اختر نظام الترجمة:</span>
@@ -729,7 +757,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
               <span className="text-xs opacity-80">مع التعليقات</span>
             </Button>
           </div>
-        </div>
+        </Card>
 
         {/* Translated Code Display */}
         <Card className="p-6 gradient-card">
