@@ -617,37 +617,6 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
             {language === "javascript" ? "جافاسكريبت" : "بايثون"}
           </Badge>
         </div>
-        
-      {/* Translation Mode Buttons */}
-        <div className="flex items-center gap-2">
-          <Settings className="h-4 w-4 text-muted-foreground" />
-          <div className="flex gap-1 p-1 bg-muted rounded-lg">
-            <Button
-              variant={translationMode === "full" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTranslationMode("full")}
-              className="text-xs"
-            >
-              كلية
-            </Button>
-            <Button
-              variant={translationMode === "partial" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTranslationMode("partial")}
-              className="text-xs"
-            >
-              جزئية
-            </Button>
-            <Button
-              variant={translationMode === "mixed" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setTranslationMode("mixed")}
-              className="text-xs"
-            >
-              مختلطة
-            </Button>
-          </div>
-        </div>
       </div>
 
       {/* Translation Mode Info */}
@@ -661,7 +630,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="space-y-6">
         {/* Arabic Code Editor */}
         <Card className="p-6 gradient-card">
           <div className="flex items-center justify-between mb-4">
@@ -722,6 +691,43 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
             dir="rtl"
           />
         </Card>
+
+        {/* Translation System Buttons */}
+        <div className="flex flex-col items-center gap-4 py-8 bg-gradient-to-r from-primary/5 via-accent/10 to-primary/5 rounded-lg border border-border/50">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Settings className="h-5 w-5" />
+            <span className="font-medium">اختر نظام الترجمة:</span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
+            <Button
+              variant={translationMode === "full" ? "default" : "outline"}
+              onClick={() => setTranslationMode("full")}
+              className="flex flex-col gap-2 h-auto py-6 text-center"
+            >
+              <span className="font-bold text-base">الترجمة الكلية</span>
+              <span className="text-xs opacity-80">ترجمة جميع المصطلحات العربية</span>
+            </Button>
+            
+            <Button
+              variant={translationMode === "partial" ? "default" : "outline"}
+              onClick={() => setTranslationMode("partial")}
+              className="flex flex-col gap-2 h-auto py-6 text-center"
+            >
+              <span className="font-bold text-base">الترجمة الجزئية</span>
+              <span className="text-xs opacity-80">الكلمات الأساسية فقط</span>
+            </Button>
+            
+            <Button
+              variant={translationMode === "mixed" ? "default" : "outline"}
+              onClick={() => setTranslationMode("mixed")}
+              className="flex flex-col gap-2 h-auto py-6 text-center"
+            >
+              <span className="font-bold text-base">الترجمة المختلطة</span>
+              <span className="text-xs opacity-80">مع الحفاظ على التعليقات العربية</span>
+            </Button>
+          </div>
+        </div>
 
         {/* Translated Code Display */}
         <Card className="p-6 gradient-card">
