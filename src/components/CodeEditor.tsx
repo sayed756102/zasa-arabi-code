@@ -699,7 +699,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
         <div className="flex justify-center items-center gap-4 py-4 px-6 bg-card/30 rounded-lg border border-border/50">
           <Button
             variant={translationMode === "full" ? "default" : "outline"}
-            onClick={() => setShowSupportDialog(true)}
+            onClick={() => setTranslationMode("full")}
             className="h-10 px-6"
           >
             الترجمة الكلية
@@ -715,7 +715,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
           
           <Button
             variant={translationMode === "mixed" ? "default" : "outline"}
-            onClick={() => setShowSupportDialog(true)}
+            onClick={() => setTranslationMode("mixed")}
             className="h-10 px-6"
           >
             الترجمة المختلطة
