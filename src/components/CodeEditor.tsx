@@ -695,69 +695,32 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
           />
         </Card>
 
-        {/* Translation System Buttons */}
-        <Card className="p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-lg font-semibold">أنظمة الترجمة</h3>
-            <TranslationSettings 
-              onTermSelect={(arabic, english) => {
-                // Add the selected term to the current cursor position in Arabic input
-                const textarea = document.querySelector('textarea[dir="rtl"]') as HTMLTextAreaElement;
-                if (textarea) {
-                  const start = textarea.selectionStart;
-                  const end = textarea.selectionEnd;
-                  const currentValue = textarea.value;
-                  const newValue = currentValue.substring(0, start) + arabic + currentValue.substring(end);
-                  setArabicCode(newValue);
-                  
-                  // Focus back to textarea and set cursor position
-                  setTimeout(() => {
-                    textarea.focus();
-                    textarea.setSelectionRange(start + arabic.length, start + arabic.length);
-                  }, 0);
-                  
-                  toast({
-                    title: "تم إضافة المصطلح",
-                    description: `تم إضافة "${arabic}" = "${english}"`,
-                  });
-                }
-              }}
-            />
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Settings className="h-5 w-5" />
-            <span className="font-medium">اختر نظام الترجمة:</span>
-          </div>
+        {/* Translation Systems Bar */}
+        <div className="flex justify-center items-center gap-4 py-4 px-6 bg-card/30 rounded-lg border border-border/50">
+          <Button
+            variant={translationMode === "full" ? "default" : "outline"}
+            onClick={() => setShowSupportDialog(true)}
+            className="h-10 px-6"
+          >
+            الترجمة الكلية
+          </Button>
           
-          <div className="flex flex-wrap justify-center gap-3 w-full">
-            <Button
-              variant={translationMode === "full" ? "default" : "outline"}
-              onClick={() => setShowSupportDialog(true)}
-              className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
-            >
-              <span className="font-bold text-sm">الترجمة الكلية</span>
-              <span className="text-xs opacity-80">جميع المصطلحات</span>
-            </Button>
-            
-            <Button
-              variant={translationMode === "partial" ? "default" : "outline"}
-              onClick={() => setTranslationMode("partial")}
-              className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
-            >
-              <span className="font-bold text-sm">الترجمة الجزئية</span>
-              <span className="text-xs opacity-80">الكلمات الأساسية</span>
-            </Button>
-            
-            <Button
-              variant={translationMode === "mixed" ? "default" : "outline"}
-              onClick={() => setShowSupportDialog(true)}
-              className="flex flex-col gap-1 h-auto py-4 px-6 min-w-[140px] text-center"
-            >
-              <span className="font-bold text-sm">الترجمة المختلطة</span>
-              <span className="text-xs opacity-80">مع التعليقات</span>
-            </Button>
-          </div>
-        </Card>
+          <Button
+            variant={translationMode === "partial" ? "default" : "outline"}
+            onClick={() => setTranslationMode("partial")}
+            className="h-10 px-6"
+          >
+            الترجمة الجزئية
+          </Button>
+          
+          <Button
+            variant={translationMode === "mixed" ? "default" : "outline"}
+            onClick={() => setShowSupportDialog(true)}
+            className="h-10 px-6"
+          >
+            الترجمة المختلطة
+          </Button>
+        </div>
 
         {/* Translated Code Display */}
         <Card className="p-6 gradient-card">
