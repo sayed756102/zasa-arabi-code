@@ -160,4 +160,14 @@ All colors MUST be HSL.
   .arabic-string { @apply text-yellow-400; }
   .arabic-number { @apply text-blue-400; }
   .arabic-comment { @apply text-muted-foreground; }
+
+  /* Error highlighting for code editor */
+  .error-highlight {
+    @apply bg-destructive/20 text-destructive border-b-2 border-destructive/50 rounded-sm px-1;
+    pointer-events: all !important;
+  }
+
+  .error-highlight:hover {
+    @apply bg-destructive/30 border-destructive;
+  }
 }

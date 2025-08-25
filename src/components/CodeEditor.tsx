@@ -2,8 +2,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Copy, Trash2, Play, Settings, Facebook } from "lucide-react";
-import { useState } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Copy, Trash2, Play, Settings, Facebook, AlertTriangle } from "lucide-react";
+import { useState, useMemo } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import TranslationSettings from "./TranslationSettings";
@@ -19,6 +20,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
   const [translatedCode, setTranslatedCode] = useState("");
   const [translationMode, setTranslationMode] = useState<TranslationMode>("partial");
   const [showSupportDialog, setShowSupportDialog] = useState(false);
+  const [clickedWord, setClickedWord] = useState<string | null>(null);
   const { toast } = useToast();
 
   // Enhanced translation dictionaries with comprehensive terms
@@ -517,7 +519,191 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "اختبار_وحدة": "unittest",
     "مسلسل": "threading",
     "متعدد_عمليات": "multiprocessing",
-    "غير_متزامن": "asyncio"
+    "غير_متزامن": "asyncio",
+    
+    // Additional comprehensive programming terms
+    "فئة_اساسية": "BaseClass",
+    "وراثة": "inheritance",
+    "تغليف": "encapsulation",
+    "تعدد_اشكال": "polymorphism",
+    "تجريد": "abstraction",
+    "واجهة": "interface",
+    "بروتوكول_برمجة": "protocol",
+    "مصنع": "factory",
+    "نمط_تصميم": "design_pattern",
+    "وحدة_نمطية": "module",
+    "حزمة_برامج": "package",
+    "مكتبة_برامج": "library",
+    "اطار_عمل": "framework",
+    "مترجم": "compiler",
+    "مفسر": "interpreter",
+    "متغير_بيئة": "environment_variable",
+    "مسار_ملف": "file_path",
+    "دليل": "directory",
+    "مجلد": "folder",
+    "جذر": "root",
+    "فرع": "branch",
+    "عقدة": "node",
+    "شجرة": "tree",
+    "رسم_بياني": "graph",
+    "خوارزمية": "algorithm",
+    "بنية_بيانات": "data_structure",
+    "مكدس": "stack",
+    "طابور": "queue",
+    "قائمة_مرتبطة": "linked_list",
+    "جدول_هاش": "hash_table",
+    "شجرة_بحث": "search_tree",
+    "ترتيب_فقاعي": "bubble_sort",
+    "ترتيب_سريع": "quick_sort",
+    "ترتيب_دمج": "merge_sort",
+    "بحث_خطي": "linear_search",
+    "بحث_ثنائي": "binary_search",
+    "تعقيد_زمني": "time_complexity",
+    "تعقيد_مكاني": "space_complexity",
+    "تحسين": "optimization",
+    "تنقيح": "debugging",
+    "اختبار_برامج": "testing",
+    "اختبار_وحدة_برامج": "unit_testing",
+    "اختبار_تكامل": "integration_testing",
+    "اختبار_نظام": "system_testing",
+    "ادارة_اصدار": "version_control",
+    "جيت": "git",
+    "التزام": "commit",
+    "دفع": "push",
+    "سحب": "pull",
+    "دمج": "merge",
+    "تفريع": "branch",
+    "مستودع": "repository",
+    "استنساخ": "clone",
+    "شوكة": "fork",
+    "طلب_سحب": "pull_request",
+    "اصدار": "release",
+    "علامة": "tag",
+    "نشر": "deployment",
+    "تطوير": "development",
+    "انتاج": "production",
+    "اختبار_بيئة": "testing_environment",
+    "تدريج": "staging",
+    "تحديث_برامج": "update",
+    "ترقية": "upgrade",
+    "تصحيح": "patch",
+    "تهجير": "migration",
+    "نسخ_احتياطي": "backup",
+    "استعادة": "restore",
+    "قاعدة_بيانات": "database",
+    "جدول_بيانات": "table",
+    "صف_بيانات": "row",
+    "عمود_بيانات": "column",
+    "مؤشر_بيانات": "index", 
+    "مفتاح_اساسي": "primary_key",
+    "مفتاح_اجنبي": "foreign_key",
+    "قيد": "constraint",
+    "علاقة": "relationship",
+    "تطبيع": "normalization",
+    "استعلام": "query",
+    "اختيار": "select",
+    "ادراج_بيانات": "insert",
+    "تحديث_جدول": "update",
+    "حذف_جدول": "delete",
+    "انضمام": "join",
+    "تجميع": "group_by",
+    "ترتيب_بـ": "order_by",
+    "امتلاك": "having",
+    "حيث": "where",
+    "من_جدول": "from",
+    "في_جدول": "into",
+    "قيم_بيانات": "values",
+    "مميز": "distinct",
+    "عد_البيانات": "count",
+    "مجموع_البيانات": "sum",
+    "متوسط": "avg",
+    "اكبر_قيمة": "max",
+    "اصغر_قيمة": "min",
+    "خادم": "server",
+    "عميل": "client",
+    "شبكة": "network",
+    "بروتوكول_شبكة": "protocol",
+    "اتش_تي_تي_بي": "HTTP",
+    "اتش_تي_تي_بي_اس": "HTTPS",
+    "ف_تي_بي": "FTP",
+    "اس_اس_اتش": "SSH",
+    "تي_سي_بي": "TCP",
+    "يو_دي_بي": "UDP",
+    "عنوان_اي_بي": "IP_address",
+    "منفذ": "port",
+    "طلب": "request",
+    "استجابة": "response",
+    "رأس": "header",
+    "جسم": "body",
+    "كوكيز": "cookies",
+    "جلسة": "session",
+    "رمز_مميز": "token",
+    "مصادقة": "authentication",
+    "تفويض": "authorization",
+    "تشفير_بيانات": "encryption",
+    "فك_تشفير_بيانات": "decryption",
+    "هاش": "hash",
+    "ملح": "salt"
+  };
+
+  // Error detection logic
+  const detectErrors = useMemo(() => {
+    if (!arabicCode.trim()) return [];
+    
+    const translations = language === "javascript" ? jsTranslations : pythonTranslations;
+    const words = arabicCode.match(/[\u0600-\u06FF\w]+/g) || [];
+    const errors = [];
+    
+    for (const word of words) {
+      if (word.match(/[\u0600-\u06FF]/)) { // Arabic characters
+        if (!translations[word]) {
+          // Check if it's a basic syntax error
+          const basicJSErrors = ["؛", "،", "\"", "'", "(", ")", "{", "}", "[", "]"];
+          const basicPythonErrors = [":", "،", "\"", "'", "(", ")", "[", "]"];
+          const basicErrors = language === "javascript" ? basicJSErrors : basicPythonErrors;
+          
+          if (basicErrors.some(err => word.includes(err))) {
+            errors.push({
+              word,
+              type: "syntax",
+              message: `خطأ في أساسيات لغة ${language === "javascript" ? "الجافاسكريبت" : "البايثون"}`
+            });
+          } else {
+            errors.push({
+              word,
+              type: "translation",
+              message: "كلمة غير موجودة في قاعدة بيانات الترجمة"
+            });
+          }
+        }
+      }
+    }
+    
+    return errors;
+  }, [arabicCode, language, jsTranslations, pythonTranslations]);
+
+  const highlightErrors = (text: string) => {
+    if (!detectErrors.length) return text;
+    
+    let highlightedText = text;
+    detectErrors.forEach(error => {
+      const regex = new RegExp(`\\b${error.word}\\b`, 'g');
+      highlightedText = highlightedText.replace(
+        regex, 
+        `<span class="error-highlight cursor-pointer" data-word="${error.word}" data-error="${error.message}">${error.word}</span>`
+      );
+    });
+    
+    return highlightedText;
+  };
+
+  const handleWordClick = (word: string, errorMessage: string) => {
+    setClickedWord(word);
+    toast({
+      title: "تفاصيل الخطأ",
+      description: errorMessage,
+      variant: "destructive",
+    });
   };
 
   const translateCode = () => {
@@ -641,22 +827,34 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
               اكتب الكود بالعربية
             </h4>
             <div className="flex gap-2">
-              <Button onClick={translateCode} size="sm" className="gap-2">
-                <Play className="h-4 w-4" />
-                ترجم
-              </Button>
               <Button onClick={clearCode} variant="outline" size="sm" className="gap-2">
                 <Trash2 className="h-4 w-4" />
                 مسح
               </Button>
+              {detectErrors.length > 0 && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Badge variant="destructive" className="gap-1">
+                        <AlertTriangle className="h-3 w-3" />
+                        {detectErrors.length} خطأ
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>اضغط على الكلمات المحددة بالأحمر لمعرفة سبب الخطأ</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
             </div>
           </div>
           
-          <Textarea
-            value={arabicCode}
-            onChange={(e) => setArabicCode(e.target.value)}
-            placeholder={language === "javascript" ? 
-              `// اكتب الكود بالعربية هنا
+          <div className="relative">
+            <Textarea
+              value={arabicCode}
+              onChange={(e) => setArabicCode(e.target.value)}
+              placeholder={language === "javascript" ? 
+                `// اكتب الكود بالعربية هنا
 // مثال:
 دالة مرحبا() {
   اطبع("أهلا وسهلا")
@@ -674,7 +872,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
 } والا {
   اطبع("قاصر")
 }` :
-              `# اكتب الكود بالعربية هنا
+                `# اكتب الكود بالعربية هنا
 # مثال:
 دالة مرحبا():
     اطبع("أهلا وسهلا")
@@ -689,17 +887,46 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     اطبع("بالغة")
 والا:
     اطبع("قاصرة")`
-            }
-            className="min-h-[400px] code-editor resize-y font-mono text-sm arabic-text"
-            dir="rtl"
-          />
+              }
+              className="min-h-[400px] code-editor resize-y font-mono text-sm arabic-text"
+              dir="rtl"
+            />
+            {/* Error highlighting overlay */}
+            {detectErrors.length > 0 && (
+              <div 
+                className="absolute inset-0 pointer-events-none min-h-[400px] p-3 overflow-auto font-mono text-sm"
+                style={{ 
+                  color: 'transparent',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word'
+                }}
+                dir="rtl"
+                dangerouslySetInnerHTML={{ 
+                  __html: highlightErrors(arabicCode || '') 
+                }}
+                onClick={(e) => {
+                  const target = e.target as HTMLElement;
+                  if (target.classList.contains('error-highlight')) {
+                    const word = target.dataset.word;
+                    const error = target.dataset.error;
+                    if (word && error) {
+                      handleWordClick(word, error);
+                    }
+                  }
+                }}
+              />
+            )}
+          </div>
         </Card>
 
         {/* Translation Systems Bar */}
         <div className="flex justify-center items-center gap-4 py-4 px-6 bg-card/30 rounded-lg border border-border/50">
           <Button
             variant={translationMode === "full" ? "default" : "outline"}
-            onClick={() => setTranslationMode("full")}
+            onClick={() => {
+              setTranslationMode("full");
+              if (arabicCode.trim()) translateCode();
+            }}
             className="h-10 px-6"
           >
             الترجمة الكلية
@@ -707,7 +934,10 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
           
           <Button
             variant={translationMode === "partial" ? "default" : "outline"}
-            onClick={() => setTranslationMode("partial")}
+            onClick={() => {
+              setTranslationMode("partial");
+              if (arabicCode.trim()) translateCode();
+            }}
             className="h-10 px-6"
           >
             الترجمة الجزئية
@@ -715,7 +945,10 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
           
           <Button
             variant={translationMode === "mixed" ? "default" : "outline"}
-            onClick={() => setTranslationMode("mixed")}
+            onClick={() => {
+              setTranslationMode("mixed");
+              if (arabicCode.trim()) translateCode();
+            }}
             className="h-10 px-6"
           >
             الترجمة المختلطة
