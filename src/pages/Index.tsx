@@ -110,10 +110,23 @@ const Index = () => {
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Facebook"
+                  aria-label="Facebook Page"
                 >
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <a 
+                  href="https://www.facebook.com/groups/2275552176209029/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Facebook Forum"
+                >
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10C22 6.48 17.52 2 12 2zM6.5 9L10 5.5L13.5 9H11v4H9V9H6.5zM17.5 15L14 18.5L10.5 15H13V11h2v4H17.5z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z"/>
                   </svg>
                 </a>
               </div>
