@@ -23,7 +23,7 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
   const [clickedWord, setClickedWord] = useState<string | null>(null);
   const { toast } = useToast();
 
-  // Enhanced translation dictionaries with comprehensive terms
+  // Enhanced and expanded translation dictionaries with comprehensive terms
   const jsTranslations = {
     // Basic keywords
     "متغير": "let",
@@ -57,17 +57,38 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "فارغة": "void",
     "انتظر": "await",
     "غير_متزامن": "async",
+    "ثابت_الكتلة": "const",
+    "متغير_الكتلة": "let",
+    "متغير_عام": "var",
+    "اصطياد": "catch",
+    "رمي": "throw",
+    "بناء": "constructor",
+    "احصل": "get",
+    "اضبط": "set",
+    "ثابت_فئة": "static",
+    "تطبيق": "apply",
+    "استدعاء": "call",
+    "ربط_this": "bind",
     
     // Built-in objects and methods
     "اطبع": "console.log",
     "خطأ": "console.error",
     "تحذير": "console.warn",
     "معلومات": "console.info",
+     "تتبع": "console.trace",
+     "جدول": "console.table",
+     "مجموعة_كونسول": "console.group",
+     "نهاية_مجموعة": "console.groupEnd",
+    "توقيت": "console.time",
+    "نهاية_توقيت": "console.timeEnd",
+    "عدادات": "console.count",
+    "مسح_عدادات": "console.countReset",
     "تنبيه": "alert",
     "تأكيد": "confirm",
     "مطالبة": "prompt",
     "سلسلة": "String",
     "رقم": "Number",
+    "رقم_كبير": "BigInt",
     "منطقي": "Boolean",
     "مصفوفة": "Array",
     "كائن": "Object",
@@ -76,11 +97,32 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "جيسون": "JSON",
     "تعبير_نمطي": "RegExp",
     "خريطة": "Map",
+    "خريطة_ضعيفة": "WeakMap",
     "مجموعة": "Set",
+    "مجموعة_ضعيفة": "WeakSet",
     "وعد": "Promise",
     "رمز": "Symbol",
+    "متكرر": "Iterator",
+    "مولد": "Generator",
+    "بوكسي": "Proxy",
+    "تأمل": "Reflect",
+    "مصفوفة_مؤقتة": "ArrayBuffer",
+    "عرض_بيانات": "DataView",
+    "مصفوفة_مكتوبة": "TypedArray",
+    "عدد_صحيح_8": "Int8Array",
+    "عدد_صحيح_16": "Int16Array",
+    "عدد_صحيح_32": "Int32Array",
+    "عدد_صحيح_كبير_64": "BigInt64Array",
+    "عدد_غير_سالب_8": "Uint8Array",
+    "عدد_غير_سالب_16": "Uint16Array",
+    "عدد_غير_سالب_32": "Uint32Array",
+    "عدد_غير_سالب_كبير_64": "BigUint64Array",
+    "عدد_عشري_32": "Float32Array",
+    "عدد_عشري_64": "Float64Array",
+    "مصفوفة_مؤقتة_مشتركة": "SharedArrayBuffer",
+    "عمليات_ذرية": "Atomics",
     
-    // Array methods
+    // Array methods - comprehensive
     "ادفع": "push",
     "اسحب": "pop",
     "انزع": "shift",
@@ -92,9 +134,12 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "رتب": "sort",
     "اعثر": "find",
     "اعثر_على_فهرس": "findIndex",
+    "اعثر_آخر": "findLast",
+    "اعثر_على_فهرس_آخر": "findLastIndex",
     "رشح": "filter",
     "اربط_كل": "map",
     "تقليل": "reduce",
+    "تقليل_يمين": "reduceRight",
     "لكل_عنصر": "forEach",
     "بعض": "some",
     "كل": "every",
@@ -103,8 +148,17 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "آخر_فهرس_من": "lastIndexOf",
     "مسطح": "flat",
     "اربط_مسطح": "flatMap",
+    "نسخ_داخل": "copyWithin",
+    "ملء": "fill",
+    "من_مصفوفة": "from",
+    "هو_مصفوفة": "isArray",
+    "من_فهارس": "keys",
+    "قيم_مصفوفة": "values",
+    "ادخالات_مصفوفة": "entries",
+    "في_موضع": "at",
+    "تحديث_كل": "with",
     
-    // String methods
+    // String methods - comprehensive
     "الطول": "length",
     "يحتوي": "includes",
     "يبدأ_بـ": "startsWith",
@@ -117,67 +171,147 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "تشذيب_النهاية": "trimEnd",
     "كبير": "toUpperCase",
     "صغير": "toLowerCase",
+    "موضعي_كبير": "toLocaleUpperCase",
+    "موضعي_صغير": "toLocaleLowerCase",
     "تكرار": "repeat",
     "حشو_البداية": "padStart",
     "حشو_النهاية": "padEnd",
     "رمز_في": "charAt",
     "كود_رمز_في": "charCodeAt",
+    "نقطة_كود_في": "codePointAt",
     "مطابقة": "match",
+    "مطابقة_الكل": "matchAll",
     "بحث": "search",
+    "تطبيع": "normalize",
+    "سلسلة_فرعية": "substring",
+    "فرعي": "substr",
+    "موضعي_مقارنة": "localeCompare",
+    "من_نقطة_كود": "fromCodePoint",
+    "من_كود_رمز": "fromCharCode",
+    "خام": "raw",
+    "في_موضع_نص": "at",
     
-    // Math methods
+    // Math methods - comprehensive
     "عشوائي": "random",
     "دائري": "round",
     "سقف": "ceil",
     "ارضية": "floor",
     "اقطع": "trunc",
+    "اشارة": "sign",
     "مطلق": "abs",
     "اكبر": "max",
     "اصغر": "min",
     "قوة": "pow",
     "جذر_تربيعي": "sqrt",
     "جذر_مكعب": "cbrt",
+    "جذر_تربيعي_مجموع_مربعات": "hypot",
     "لوغاريتم": "log",
     "لوغاريتم_10": "log10",
     "لوغاريتم_2": "log2",
+    "لوغاريتم_واحد_زائد": "log1p",
     "أس": "exp",
+    "أس_ناقص_واحد": "expm1",
     "جيب": "sin",
     "جيب_تمام": "cos",
     "ظل": "tan",
+    "جيب_زاوي": "sinh",
+    "جيب_تمام_زاوي": "cosh",
+    "ظل_زاوي": "tanh",
     "جيب_عكسي": "asin",
     "جيب_تمام_عكسي": "acos",
     "ظل_عكسي": "atan",
+    "ظل_عكسي_ثنائي": "atan2",
+    "جيب_زاوي_عكسي": "asinh",
+    "جيب_تمام_زاوي_عكسي": "acosh",
+    "ظل_زاوي_عكسي": "atanh",
+    "ضرب_وجمع": "fma",
+    "ضرب_32": "imul",
+    "زعيم_الاصفار": "clz32",
     "باي": "PI",
     "أويلر": "E",
+    "لوغاريتم_2_أويلر": "LN2",
+    "لوغاريتم_10_أويلر": "LN10",
+    "لوغاريتم_أويلر_2": "LOG2E",
+    "لوغاريتم_أويلر_10": "LOG10E",
+    "جذر_تربيعي_نصف": "SQRT1_2",
+    "جذر_تربيعي_اثنين": "SQRT2",
     
-    // Object methods
+    // Object methods - comprehensive
     "مفاتيح": "keys",
     "قيم": "values",
     "مدخلات": "entries",
     "لديه_خاصية": "hasOwnProperty",
+    "لديه_خاصية_ذاتية": "hasOwnProperty",
+    "قابل_للعد": "propertyIsEnumerable",
     "تجميد": "freeze",
     "اختام": "seal",
+    "منع_التمديد": "preventExtensions",
+    "مجمد": "isFrozen",
+    "مختوم": "isSealed",
+    "قابل_للتمديد": "isExtensible",
     "نسخ": "assign",
     "انشاء": "create",
     "تعريف_خاصية": "defineProperty",
+    "تعريف_خصائص": "defineProperties",
     "وصف_خاصية": "getOwnPropertyDescriptor",
+    "وصف_خصائص": "getOwnPropertyDescriptors",
+    "اسماء_خصائص": "getOwnPropertyNames",
+    "رموز_خصائص": "getOwnPropertySymbols",
+    "احصل_على_الأصل": "getPrototypeOf",
+    "اضبط_الأصل": "setPrototypeOf",
+    "هو": "is",
+    "مفاتيح_ذاتية": "getOwnPropertyNames",
+    "من_ادخالات": "fromEntries",
     
-    // Date methods
+    // Date methods - comprehensive  
     "الآن": "now",
+    "تحليل": "parse",
+    "عالمي_توقيت": "UTC",
     "السنة": "getFullYear",
+    "السنة_عالمي": "getUTCFullYear",
     "الشهر": "getMonth",
-    "اليوم": "getDate",
-    "ساعة": "getHours",
-    "دقيقة": "getMinutes",
-    "ثانية": "getSeconds",
-    "مللي_ثانية": "getMilliseconds",
-    "وقت": "getTime",
-    "سلسلة_نصية": "toString",
-    "سلسلة_تاريخ": "toDateString",
-    "سلسلة_وقت": "toTimeString",
-    "سلسلة_محلية": "toLocaleString",
+    "الشهر_عالمي": "getUTCMonth",
+    "التاريخ": "getDate",
+    "التاريخ_عالمي": "getUTCDate",
+    "اليوم": "getDay",
+    "اليوم_عالمي": "getUTCDay",
+    "الساعات": "getHours",
+    "الساعات_عالمي": "getUTCHours",
+    "الدقائق": "getMinutes",
+    "الدقائق_عالمي": "getUTCMinutes",
+    "الثواني": "getSeconds",
+    "الثواني_عالمي": "getUTCSeconds",
+    "الملي_ثواني": "getMilliseconds",
+    "الملي_ثواني_عالمي": "getUTCMilliseconds",
+    "اضبط_السنة": "setFullYear",
+    "اضبط_السنة_عالمي": "setUTCFullYear",
+    "اضبط_الشهر": "setMonth",
+    "اضبط_الشهر_عالمي": "setUTCMonth",
+    "اضبط_التاريخ": "setDate",
+    "اضبط_التاريخ_عالمي": "setUTCDate",
+    "اضبط_الساعات": "setHours",
+    "اضبط_الساعات_عالمي": "setUTCHours",
+    "اضبط_الدقائق": "setMinutes",
+    "اضبط_الدقائق_عالمي": "setUTCMinutes",
+    "اضبط_الثواني": "setSeconds",
+    "اضبط_الثواني_عالمي": "setUTCSeconds",
+    "اضبط_الملي_ثواني": "setMilliseconds",
+    "اضبط_الملي_ثواني_عالمي": "setUTCMilliseconds",
+    "اضبط_الوقت": "setTime",
+    "احصل_على_الوقت": "getTime",
+    "فرق_المنطقة_الزمنية": "getTimezoneOffset",
+    "الى_سلسلة": "toString",
+    "الى_سلسلة_تاريخ": "toDateString",
+    "الى_سلسلة_وقت": "toTimeString",
+    "الى_سلسلة_ايزو": "toISOString",
+    "الى_سلسلة_جيسون": "toJSON",
+    "الى_سلسلة_عالمي": "toUTCString",
+    "الى_سلسلة_محلي": "toLocaleString",
+    "الى_سلسلة_تاريخ_محلي": "toLocaleDateString",
+    "الى_سلسلة_وقت_محلي": "toLocaleTimeString",
+    "قيمة_من": "valueOf",
     
-    // Operators and logical
+    // Operators and logical - comprehensive
     "يساوي": "===",
     "لا_يساوي": "!==",
     "يساوي_تقريبا": "==",
@@ -190,12 +324,34 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "او": "||",
     "ليس": "!",
     "او_الفارغ": "??",
+    "اختيار_اذا": "?:",
+    "زائد": "+",
+    "ناقص": "-",
+    "ضرب": "*",
+    "قسمة": "/",
+    "باقي": "%",
+    "قوة_رمز": "**",
     "زائد_يساوي": "+=",
     "ناقص_يساوي": "-=",
     "ضرب_يساوي": "*=",
     "قسمة_يساوي": "/=",
     "باقي_يساوي": "%=",
     "قوة_يساوي": "**=",
+    "زيادة": "++",
+    "نقص": "--",
+    "و_بتي": "&",
+    "او_بتي": "|",
+    "او_حصري_بتي": "^",
+    "ليس_بتي": "~",
+    "ازاحة_يسار": "<<",
+    "ازاحة_يمين": ">>",
+    "ازاحة_يمين_غير_موقع": ">>>",
+    "و_بتي_يساوي": "&=",
+    "او_بتي_يساوي": "|=",
+    "او_حصري_بتي_يساوي": "^=",
+    "ازاحة_يسار_يساوي": "<<=",
+    "ازاحة_يمين_يساوي": ">>=",
+    "ازاحة_يمين_غير_موقع_يساوي": ">>>=",
     
     // Common values
     "صحيح": "true",
@@ -203,32 +359,83 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
     "فارغ": "null",
     "غير_معرف": "undefined",
     "لا_نهاية": "Infinity",
+    "لا_نهاية_سالبة": "-Infinity",
     "ليس_رقم": "NaN",
     
-    // Control flow
+    // Control flow - comprehensive
     "تبديل": "switch",
     "حالة": "case",
     "افتراضي_حالة": "default",
     "مع": "with",
     "تسمية": "label",
+    "استمرار_الى": "continue",
+    "كسر_الى": "break",
     
-    // Error handling
+    // Error handling - comprehensive
     "خطأ_عام": "Error",
+    "خطأ_تجميع": "AggregateError",
+    "خطأ_داخلي": "InternalError",
     "خطأ_نوع": "TypeError",
     "خطأ_مرجع": "ReferenceError",
     "خطأ_نطاق": "RangeError",
+    "خطأ_تقييم": "EvalError",
     "خطأ_صيغة": "SyntaxError",
+    "خطأ_يوري": "URIError",
+    "خطأ_تأكيد": "AssertionError",
     
-    // Modern JavaScript
+    // Modern JavaScript - comprehensive
     "تدمير": "destructuring",
     "انتشار": "...",
     "راحة": "rest",
     "قالب_نصي": "template literal",
+    "مترابط_سلسلة": "tagged template",
     "سهم": "=>",
-    "مولد": "function*",
-    "استسلام": "yield",
+     "مولد_دالة": "function*",
+     "استسلام": "yield",
+     "استسلام_من": "yield*",
     "وحدة": "module",
     "ديناميكي_استيراد": "import()",
+    "ميتا_استيراد": "import.meta",
+    "تصدير_جميع": "export *",
+    "تصدير_من": "export from",
+    "فئة_تعبير": "class expression",
+    "فئة_إعلان": "class declaration",
+    "كائن_حرفي": "object literal",
+    "مصفوفة_حرفية": "array literal",
+    "تعبير_نمطي_حرفي": "regex literal",
+    "حاسبة_خصائص": "computed properties",
+    "طريقة_مختصرة": "method shorthand",
+    "خاصية_مختصرة": "property shorthand",
+    "معاملات_افتراضية": "default parameters",
+    "معاملات_راحة": "rest parameters",
+    "معاملات_انتشار": "spread parameters",
+    "تدمير_كائن": "object destructuring",
+    "تدمير_مصفوفة": "array destructuring",
+    "عامل_تسلسل": "chaining operator",
+    "عامل_تسلسل_اختياري": "optional chaining",
+    "اسناد_فارغ": "nullish coalescing",
+    "اسناد_منطقي": "logical assignment",
+    "تخصيص_خاص": "private fields",
+    "طريقة_خاصة": "private methods",
+    "طريقة_ثابتة_خاصة": "private static methods",
+    "حقل_ثابت_خاص": "private static fields",
+    "حقول_عامة": "public fields",
+    "طرق_ثابتة": "static methods",
+    "مطابقة_انماط": "pattern matching",
+    "رقم_كبير_حرفي": "bigint literal",
+    "استكمال_عالي_الترتيب": "higher-order functions",
+    "اغلاقات": "closures",
+    "نطاق": "scope",
+    "نطاق_المعجم": "lexical scope",
+    "رفع": "hoisting",
+    "منطقة_زمنية_ميتة": "temporal dead zone",
+    "كومة": "heap",
+    "مكدس_استدعاء": "call stack",
+    "حلقة_الاحداث": "event loop",
+    "مهام_صغيرة": "microtasks",
+    "مهام_كبيرة": "macrotasks",
+    "تشغيل_متوازي": "concurrency",
+    "تشغيل_متوازي_حقيقي": "parallelism",
   };
 
   const pythonTranslations = {
@@ -729,12 +936,49 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
         break;
         
       case "partial":
-        // Only translate keywords, keep variable names and strings in Arabic
-        const keywords = language === "javascript" 
-          ? ["متغير", "ثابت", "دالة", "ارجع", "اذا", "والا", "لكل", "بينما", "اطبع"]
-          : ["دالة", "ارجع", "اذا", "والا", "والا_اذا", "لكل", "بينما", "اطبع"];
+        // Translate core programming keywords and essential methods - expanded list
+        const coreKeywords = language === "javascript" 
+          ? [
+              // Core language keywords
+              "متغير", "ثابت", "دالة", "ارجع", "اذا", "والا", "وإلا_اذا", "لكل", "بينما", "كسر", "استمر",
+              "جرب", "التقط", "اخيرا", "ارمي", "جديد", "هذا", "فئة", "يمتد", "تصدير", "استيراد", "من", "افتراضي",
+              "انتظر", "غير_متزامن", "استسلام", "نوع_من", "مثيل_من", "في", "حذف", "صحيح", "خطأ_قيمة", "فارغ", "غير_معرف",
+              // Essential built-ins and methods
+              "اطبع", "خطأ", "تحذير", "معلومات", "تنبيه", "تأكيد", "مطالبة",
+              "سلسلة", "رقم", "منطقي", "مصفوفة", "كائن", "تاريخ", "رياضيات", "جيسون",
+              // Common array methods
+              "ادفع", "اسحب", "انزع", "ادرج", "شريحة", "ربط", "اربط", "عكس", "رتب",
+              "اعثر", "اعثر_على_فهرس", "رشح", "اربط_كل", "تقليل", "لكل_عنصر", "بعض", "كل", "يشمل",
+              // Common string methods
+              "الطول", "يحتوي", "يبدأ_بـ", "ينتهي_بـ", "استبدل", "تقسيم", "تشذيب", "كبير", "صغير",
+              // Basic math methods
+              "عشوائي", "دائري", "سقف", "ارضية", "مطلق", "اكبر", "اصغر", "قوة", "جذر_تربيعي",
+              // Basic operators
+              "يساوي", "لا_يساوي", "اكبر_من", "اصغر_من", "اكبر_او_يساوي", "اصغر_او_يساوي", "و", "او", "ليس",
+              // Control flow
+              "تبديل", "حالة", "افتراضي_حالة"
+            ]
+          : [
+              // Core Python keywords
+              "دالة", "ارجع", "اذا", "والا", "والا_اذا", "لكل", "في", "بينما", "كسر", "استمر", "مرر",
+              "جرب", "الا", "اخيرا", "ارفع", "مع", "كما", "من", "استيراد", "فئة", "ذاتي", "عالمي", "غير_محلي",
+              "لامدا", "استسلم", "من_استسلم", "تأكيد", "حذف", "هو", "ليس", "في_لا", "و", "او", "صحيح", "خطأ", "لا_شيء",
+              // Essential built-ins
+              "اطبع", "دخل", "طول", "نوع", "مجال", "قائمة", "صف", "قاموس", "مجموعة", "سلسلة", "رقم_صحيح", "رقم_عشري", "منطقي",
+              "مجموع", "اكبر", "اصغر", "مرتب", "عكسي", "تعداد", "ملف_مفتوح", "مضغوط", "خريطة", "مرشح", "كل", "اي",
+              // Common list methods
+              "اضافة", "امتداد", "ادراج", "ازالة", "اخراج", "فهرس_قائمة", "عد_عناصر", "ترتيب", "عكس", "نسخة", "واضح",
+              // Common string methods
+              "استبدال", "تقسيم", "ربط", "تشذيب", "كبير", "صغير", "يبدا_بـ", "ينتهي_بـ", "عثور", "عد",
+              // Common dict methods
+              "مفاتيح", "قيم", "عناصر", "الحصول", "اخراج_عنصر", "تحديث", "واضح_قاموس",
+              // Comparison operators
+              "يساوي", "لا_يساوي", "اكبر_من", "اصغر_من", "اكبر_او_يساوي", "اصغر_او_يساوي",
+              // Math operations
+              "زائد", "ناقص", "ضرب", "قسمة", "قوة_رمز", "قسمة_صحيحة", "باقي"
+            ];
         
-        keywords.forEach(keyword => {
+        coreKeywords.forEach(keyword => {
           if (translations[keyword]) {
             const regex = new RegExp(`\\b${keyword}\\b`, 'g');
             translated = translated.replace(regex, translations[keyword]);
@@ -1004,19 +1248,29 @@ const CodeEditor = ({ language }: CodeEditorProps) => {
                   حالياً المطور واحد يطور، والتطوير يستاهل أموال لدعمه!
                 </p>
                 
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <Facebook className="h-5 w-5 text-blue-600" />
-                  <span className="text-sm text-muted-foreground">تواصل معنا</span>
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <Button 
+                    onClick={() => window.open('https://www.facebook.com/groups/2275552176209029/', '_blank')} 
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2"
+                    variant="default"
+                  >
+                    <Facebook className="h-5 w-5" />
+                    منتدى ZAS-برمجة
+                  </Button>
                 </div>
                 
                 <p className="text-sm text-muted-foreground mb-4">
-                  يمكنك الدخول على هذا الموقع لدعمنا - يحتوي على بعض الإعلانات
+                  انضم لمنتدانا على الفيسبوك للنقاش والمساعدة في البرمجة
+                </p>
+                
+                <p className="text-sm text-muted-foreground mb-4">
+                  يمكنك أيضاً الدخول على موقعنا لدعمنا - يحتوي على بعض الإعلانات
                 </p>
                 
                 <Button 
                   onClick={() => window.open('https://zas-code-journey.vercel.app', '_blank')} 
                   className="w-full gap-2"
-                  variant="default"
+                  variant="outline"
                 >
                   اضغط هنا للدعم ✨
                 </Button>
